@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1386195475 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.cpp
+	"Bullet.h"
+
+1386195475 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.h
+
+1386200448 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.cpp
+	"Character.h"
+
+1386200448 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.h
+	<vector>
+	"SDL/SDL_image.h"
+	"SDL/SDL_ttf.h"
+
+1386201331 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/main.cpp
+	<iostream>
+	"SDL/SDL_image.h"
+	"SDL/SDL_ttf.h"
+	"Character.h"
+
