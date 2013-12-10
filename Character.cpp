@@ -4,8 +4,22 @@ Character::Character(int x, int y)
 {
     this->x=x;
     this->y=y;
-    this->duracion_animacion=0;
-    this->iter=0;
+    this->duracion_animacion=10;
+    this->iteracion=0;
+    this->cuadro_actual=0;
+    this->score=0;
+    this->lives=3;
+    this->bull=new Bullet(x,y);
+
+    this->sprites.push_back(IMG_Load("ship2.png"));
+    this->sprites.push_back(IMG_Load("ship1.png"));
+
+    this->sprites.push_back(IMG_Load("ship3.png"));
+
+     this->explo_img = IMG_Load("explosion.png");
+
+
+
 
     //ctor
 }
@@ -15,10 +29,36 @@ Character::~Character()
     //dtor
 }
 
-
-void Character::dibujar(SDL_Surface*screen)
+Character::Character()
 {
+    //dtor
+}
 
+
+ void Character :: dibujar(SDL_Surface *screen)
+ {
+      this->apply_surface(0,0,score_img,screen);
+      this->apply_surface(620,0,lives_img,screen);
+      if(this->moviendose){
+                this->apply_surface(this->x,this->y,this->sprites[cuadro_actual],screen);
+
+            }else{
+                this->apply_surface(this->x,this->y,this->sprites[0],screen);
+            }
+
+        this->iteracion++;
+       if(this->iteracion==this->duracion_animacion)
+        {
+            this->cuadro_actual++;
+            if(this->cuadro_actual>=sprites.size())
+                this->cuadro_actual=0;
+                this->iteracion=0;
+                this->moviendose=false;
+        }
+ }
+
+ void Character ::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip )
+{
     //Holds offsets
     SDL_Rect offset;
 
@@ -26,17 +66,47 @@ void Character::dibujar(SDL_Surface*screen)
     offset.x = x;
     offset.y = y;
 
-    if(duracion_animacion>5){
-        iter++;
-        duracion_animacion=0;
-    }
-    if(iter>= sprites.size())
-        iter=0;
-
     //Blit
-    SDL_BlitSurface( sprites[iter], NULL, screen, &offset );
-    duracion_animacion++;
+    SDL_BlitSurface( source, clip, destination, &offset );
+}
+
+
+void Character :: morir(SDL_Surface * screen)
+{
+
+this->apply_surface(this->x,this->y,explo_img,screen);
+//
+//this->x=760;
+//this->y=580;
+
+
+this->lives-=1;
+}
+
+
+
+void Character :: shot(SDL_Surface * screen)
+{
+    bull->draw(screen,bull->x,bull->y);
+    bull->y--;
+
 
 
 }
 
+
+string Character:: toString(int number)
+{
+    if (number == 0)
+        return "0";
+    string temp="";
+    string returnvalue="";
+    while (number>0)
+    {
+        temp+=number%10+48;
+        number/=10;
+    }
+    for (int i=0;i<(int)temp.length();i++)
+        returnvalue+=temp[temp.length()-i-1];
+    return returnvalue;
+}
