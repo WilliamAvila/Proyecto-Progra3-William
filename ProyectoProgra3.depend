@@ -2,20 +2,20 @@
 1386624181 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.cpp
 	"Bullet.h"
 
-1386707636 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.h
+1386850065 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.h
 	"SDL/SDL_image.h"
 
-1386803013 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.cpp
+1386871132 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.cpp
 	"Character.h"
 
-1386635476 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.h
+1386870693 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.h
 	<vector>
 	<string>
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
 	"Bullet.h"
 
-1386809642 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/main.cpp
+1386871538 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/main.cpp
 	<iostream>
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
@@ -27,6 +27,7 @@
 	"Timer.h"
 	<sstream>
 	"Background.h"
+	"Enemy.h"
 
 1386628178 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Player.cpp
 	"Player.h"
@@ -36,12 +37,15 @@
 	"Bullet.h"
 	<vector>
 
-1386628479 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.cpp
+1386871538 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.cpp
 	"Enemy.h"
 
-1386628533 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.h
+1386871566 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.h
 	"Character.h"
 	"SDL/SDL_mixer.h"
+	"SDL/SDL_image.h"
+	"SDL/SDL_ttf.h"
+	"Bullet.h"
 
 1386631923 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Timer.cpp
 	"Timer.h"
@@ -49,7 +53,7 @@
 1386631923 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Timer.h
 	"SDL/SDL.h"
 
-1386690984 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Background.cpp
+1386850202 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Background.cpp
 	"Background.h"
 
 1386690860 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Background.h

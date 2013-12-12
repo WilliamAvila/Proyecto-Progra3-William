@@ -1,7 +1,9 @@
 #include "Enemy.h"
 
-Enemy::Enemy()
+Enemy::Enemy(int x,int y)
 {
+    this->x=x;
+    this->y=y;
     //ctor
 }
 
@@ -28,5 +30,37 @@ void Enemy::logica(Character *player)
                 }
 
 
+
+}
+
+
+
+void Enemy :: render(SDL_Surface * screen)
+{
+        //Holds offsets
+    SDL_Rect offset;
+
+    //Get offsets
+    offset.x = x;
+    offset.y = y;
+
+    //Blit
+    SDL_BlitSurface( image, NULL, screen, &offset );
+
+
+
+
+}
+
+
+void Enemy :: atacar(Character * player)
+{
+
+
+
+}
+
+void Enemy :: morir(SDL_Surface * screen)
+{
 
 }

@@ -18,7 +18,7 @@ Character::Character(int x, int y)
 
     this->explo_img = IMG_Load("explosion.png");
 
-
+    // this->bullets.push_back(new Bullet(this->x,this->y));
 
 
     //ctor
@@ -72,12 +72,13 @@ Character::Character()
 
 
 void Character :: morir(SDL_Surface * screen)
+
 {
 
 this->apply_surface(this->x,this->y,explo_img,screen);
 //
-//this->x=760;
-//this->y=580;
+this->x=760;
+this->y=580;
 
 
 this->lives-=1;
@@ -87,15 +88,25 @@ this->lives-=1;
 
 void Character :: shot(SDL_Surface * screen)
 {
+    // bull->draw(screen,bull->x,bull->y);
+//    bull->y-=2;
 
 
-    bull->draw(screen,bull->x,bull->y);
-    bull->y-=2;
+    for(int i=0;i<bullets.size();i++){
 
 
 
+    this->bullets[i]->draw(screen,bullets[i]->x,bullets[i]->y);
+    this->bullets[i]->y-=6;
+
+    this->bullets2[i]->draw(screen,bullets[i]->x+35,bullets[i]->y+9);
+    this->bullets2[i]->y-=12;
 
 
+    }
+
+
+ //this->bullets.push_back(new Bullet(this->x,this->y));
 }
 
 

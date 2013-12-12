@@ -8,7 +8,7 @@ class Bullet
     public:
         Bullet(int x, int y);
         virtual ~Bullet();
-
+        SDL_Surface *image;
         void draw(SDL_Surface* screen, int x, int y);
 
         bool exists;
@@ -19,7 +19,7 @@ class Bullet
         int damage;
         int flightType;
 
-        SDL_Surface* image;
+
     protected:
     private:
 };

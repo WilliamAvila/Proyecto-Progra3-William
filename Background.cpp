@@ -33,3 +33,5 @@ void Background::render()
 
     SDL_BlitSurface( image, NULL, screen, &offset );
 }
+
+

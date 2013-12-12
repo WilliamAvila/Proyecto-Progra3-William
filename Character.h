@@ -16,6 +16,7 @@ class Character
 
         vector<SDL_Surface*>sprites;
         vector<Bullet*>bullets;
+        vector<Bullet*>bullets2;
         Bullet *bull;
         SDL_Surface*score_img;
         SDL_Surface*lives_img;

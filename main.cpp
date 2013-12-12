@@ -10,7 +10,7 @@
 #include "Timer.h"
 #include <sstream>
 #include "Background.h"
-
+#include  "Enemy.h"
 using namespace std;
 bool down=false;
 //The frames per second
@@ -87,14 +87,14 @@ bool load_files()
 {  //Load the background image
     background = load_image("space.png");
 
-
+    Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 );
 
     //Open the font
     font = TTF_OpenFont("imagine_font.ttf", 20);
 
-//    music = Mix_LoadMUS( "sounds/beat.wav" );
-//    title= Mix_LoadMUS( "sounds/Title.ogg" );
-//    effect = Mix_LoadWAV( "sounds/04 Palmtree Panic.ogg");
+    music = Mix_LoadMUS( "sounds/Music.ogg" );
+    title= Mix_LoadMUS( "sounds/Title.ogg" );
+    effect = Mix_LoadWAV( "sounds/laser.wav");
 
     //If there was a problem in loading the background
     if( background == NULL )
@@ -108,19 +108,19 @@ bool load_files()
     }
 
     //If there was a problem loading the music
-//    if( music == NULL )
-//    {
-//        return false;
-//    }
-//    if( effect == NULL )
-//    {
-//        return false;
-//    }
-//
-//    if( title == NULL )
-//    {
-//        return false;
-//    }
+    if( music == NULL )
+    {
+        return false;
+    }
+    if( effect == NULL )
+    {
+        return false;
+    }
+
+    if( title == NULL )
+    {
+        return false;
+    }
 
     //If everything loaded fine
     return true;
@@ -233,6 +233,8 @@ int main(int argc, char* args[])
     int cursor_y=80;
     SDL_Surface *hs_highscore=TTF_RenderText_Solid( font, "High Sore",textColor );
 
+
+Mix_PlayMusic( title, -1 );
     while(quit2 ==false){
 
 
@@ -243,8 +245,10 @@ int main(int argc, char* args[])
             if( event.type == SDL_QUIT )
             {
                 //Quit the program
+                high_Score=false;
                 quit2= true;
                 quit= true;
+                is_pressed=false;
             }
         }
 
@@ -266,8 +270,10 @@ int main(int argc, char* args[])
         }
 
         if(keystates1[SDLK_RETURN]&&(cursor_x==270)&&(cursor_y==280)){
-            quit2=true;
-            quit=true;
+                high_Score=false;
+                quit2= true;
+                quit= true;
+                is_pressed=false;
 
         }
 
@@ -276,8 +282,6 @@ int main(int argc, char* args[])
                is_pressed=true;
                quit2=true;
 
-                if(keystates1[SDLK_BACKSPACE])
-                  is_pressed=false;
         }
 
 
@@ -286,8 +290,12 @@ int main(int argc, char* args[])
                high_Score=true;
                quit2=true;
 
-                if(keystates1[SDLK_BACKSPACE])
-                  high_Score=false;
+                if(keystates1[SDLK_BACKSPACE]){
+                    high_Score=false;
+                    quit2= true;
+                    quit= true;
+                    is_pressed=false;
+                }
 
         }
 
@@ -349,6 +357,7 @@ int main(int argc, char* args[])
                 high_Score=false;
                 quit2= true;
                 quit= true;
+                is_pressed=false;
             }
         }
         apply_surface( 0, 0, back_hs, screen );
@@ -358,6 +367,7 @@ int main(int argc, char* args[])
                   high_Score=false;
                   quit2=true;
                   quit=true;
+                  is_pressed=false;
          }
 
           if( SDL_Flip( screen ) == -1 )
@@ -385,8 +395,8 @@ int main(int argc, char* args[])
             }
         }
         apply_surface( 0, 0, ins_screen, screen );
-        apply_surface( 270, 80, in1, screen );
-         apply_surface( 270, 280, in2, screen );
+        apply_surface( 220, 80, in1, screen );
+         apply_surface( 220, 280, in2, screen );
 
          if(keystates1[SDLK_BACKSPACE]){
                   is_pressed=false;
@@ -416,12 +426,13 @@ int main(int argc, char* args[])
 
 
     Character *personaje = new Character(260,400);
+    Enemy *enemigo =new Enemy(260,200);
     Background back(screen);
 
      Bullet *bull = new Bullet(personaje->x,personaje->y);
 
-
-
+    enemigo->image=load_image("Enemies/enemy01.png");
+    Mix_PlayMusic(music,-1);
      while( quit == false )
     {
         //While there's events to handle
@@ -492,6 +503,7 @@ int main(int argc, char* args[])
 
 
           personaje->dibujar(screen);
+          enemigo->render(screen);
 
 
               apply_surface( 70, 10, enemy1, screen );
@@ -503,8 +515,12 @@ int main(int argc, char* args[])
             apply_surface( 490,10, enemy7, screen );
 
 
-              if( keystates[ SDLK_SPACE ] )
+              if( keystates[ SDLK_c ] )
         {
+            Mix_PlayChannel(-1,effect,0);
+                personaje->bullets2.push_back(new Bullet(personaje->x,personaje->y));
+           personaje->bullets.push_back(new Bullet(personaje->x,personaje->y));
+
             down=true;
             personaje->bull->exists=true;
 
