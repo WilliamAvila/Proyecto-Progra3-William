@@ -2,10 +2,10 @@
 1386624181 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.cpp
 	"Bullet.h"
 
-1386531343 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.h
+1386707636 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.h
 	"SDL/SDL_image.h"
 
-1386636392 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.cpp
+1386803013 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.cpp
 	"Character.h"
 
 1386635476 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.h
@@ -15,7 +15,7 @@
 	"SDL/SDL_ttf.h"
 	"Bullet.h"
 
-1386635845 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/main.cpp
+1386809642 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/main.cpp
 	<iostream>
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
@@ -26,6 +26,7 @@
 	"Player.h"
 	"Timer.h"
 	<sstream>
+	"Background.h"
 
 1386628178 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Player.cpp
 	"Player.h"
@@ -47,4 +48,13 @@
 
 1386631923 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Timer.h
 	"SDL/SDL.h"
+
+1386690984 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Background.cpp
+	"Background.h"
+
+1386690860 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Background.h
+	"SDL/SDL.h"
+	"SDL/SDL_image.h"
+	"SDL/SDL_ttf.h"
+	<string>
 

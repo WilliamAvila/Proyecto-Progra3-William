@@ -16,7 +16,7 @@ Character::Character(int x, int y)
 
     this->sprites.push_back(IMG_Load("ship3.png"));
 
-     this->explo_img = IMG_Load("explosion.png");
+    this->explo_img = IMG_Load("explosion.png");
 
 
 
@@ -87,8 +87,12 @@ this->lives-=1;
 
 void Character :: shot(SDL_Surface * screen)
 {
+
+
     bull->draw(screen,bull->x,bull->y);
-    bull->y--;
+    bull->y-=2;
+
+
 
 
 

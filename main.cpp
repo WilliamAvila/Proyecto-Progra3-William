@@ -9,9 +9,10 @@
 #include "Player.h"
 #include "Timer.h"
 #include <sstream>
+#include "Background.h"
 
 using namespace std;
-
+bool down=false;
 //The frames per second
 const int FRAMES_PER_SECOND = 60;
 
@@ -22,6 +23,7 @@ int backx=0;
 int backy =0;
 SDL_Surface *screen = NULL;
 SDL_Surface *background = NULL;
+
 
 Mix_Music *music ;
 Mix_Music *title ;
@@ -195,7 +197,25 @@ int main(int argc, char* args[])
 
 //      cout<<"Ganador: "<<nombre_max<<endl;
 
+
+    SDL_Surface*back_hs=load_image("black.png");
+    bool high_Score=false;
     bool quit = false;
+    bool quit2 =false;
+    bool is_pressed=false;
+
+    SDL_Surface*menu =IMG_Load("image1.png");
+    SDL_Surface*enter = IMG_Load("start.png");
+    SDL_Surface*hs = IMG_Load("highScore.png");
+    SDL_Surface*ins = IMG_Load("instructions.png");
+    SDL_Surface*exit = IMG_Load("exit.png");
+    Uint8 *keystates1 = SDL_GetKeyState( NULL );
+
+    SDL_Surface*ins_screen = IMG_Load("ins.png");
+    SDL_Surface*in1 = IMG_Load("in1.png");
+    SDL_Surface*in2 = IMG_Load("in2.png");
+
+
 
     //Initialize
     if( init() == false )
@@ -208,6 +228,181 @@ int main(int argc, char* args[])
     {
         return 1;
     }
+    SDL_Surface*cursor=load_image("cursor.png");
+     int cursor_x=270;
+    int cursor_y=80;
+    SDL_Surface *hs_highscore=TTF_RenderText_Solid( font, "High Sore",textColor );
+
+    while(quit2 ==false){
+
+
+
+        while( SDL_PollEvent( &event ) )
+        {
+            //If the user has Xed out the window
+            if( event.type == SDL_QUIT )
+            {
+                //Quit the program
+                quit2= true;
+                quit= true;
+            }
+        }
+
+
+
+
+
+
+        apply_surface( 0, 0, menu, screen );
+        apply_surface( 270, 80, enter, screen );
+        apply_surface( 120, 180, hs, screen );
+        apply_surface( 420, 180, ins, screen );
+        apply_surface( 270, 280, exit, screen );
+        apply_surface( cursor_x, cursor_y, cursor, screen );
+
+        if(keystates1[SDLK_RETURN]&&(cursor_x==270)&&(cursor_y==80)){
+            quit2=true;
+
+        }
+
+        if(keystates1[SDLK_RETURN]&&(cursor_x==270)&&(cursor_y==280)){
+            quit2=true;
+            quit=true;
+
+        }
+
+        if(keystates1[SDLK_RETURN]&&(cursor_x==420)&&(cursor_y==180)){
+
+               is_pressed=true;
+               quit2=true;
+
+                if(keystates1[SDLK_BACKSPACE])
+                  is_pressed=false;
+        }
+
+
+          if(keystates1[SDLK_RETURN]&&(cursor_x==120)&&(cursor_y==180)){
+
+               high_Score=true;
+               quit2=true;
+
+                if(keystates1[SDLK_BACKSPACE])
+                  high_Score=false;
+
+        }
+
+
+
+        if(keystates1[SDLK_DOWN])
+        {
+            cursor_x=270;
+            cursor_y=280;
+
+
+        }
+
+         if(keystates1[SDLK_UP])
+        {
+            cursor_x=270;
+            cursor_y=80;
+
+        }
+
+           if(keystates1[SDLK_LEFT])
+        {
+            cursor_x=120;
+            cursor_y=180;
+
+        }
+
+
+           if(keystates1[SDLK_RIGHT])
+        {
+            cursor_x=420;
+            cursor_y=180;
+
+        }
+
+
+
+
+      if( SDL_Flip( screen ) == -1 )
+        {
+            return 1;
+        }
+
+
+ }
+
+
+
+  while(high_Score){
+
+
+
+        while( SDL_PollEvent( &event ) )
+        {
+            //If the user has Xed out the window
+            if( event.type == SDL_QUIT )
+            {
+                //Quit the program
+                high_Score=false;
+                quit2= true;
+                quit= true;
+            }
+        }
+        apply_surface( 0, 0, back_hs, screen );
+        apply_surface( 270, 80, hs_highscore, screen );
+
+         if(keystates1[SDLK_BACKSPACE]){
+                  high_Score=false;
+                  quit2=true;
+                  quit=true;
+         }
+
+          if( SDL_Flip( screen ) == -1 )
+        {
+            return 1;
+        }
+
+
+  }
+
+  while(is_pressed){
+
+
+
+        while( SDL_PollEvent( &event ) )
+        {
+            //If the user has Xed out the window
+            if( event.type == SDL_QUIT )
+            {
+                //Quit the program
+                high_Score=false;
+                quit2= true;
+                quit= true;
+                is_pressed=false;
+            }
+        }
+        apply_surface( 0, 0, ins_screen, screen );
+        apply_surface( 270, 80, in1, screen );
+         apply_surface( 270, 280, in2, screen );
+
+         if(keystates1[SDLK_BACKSPACE]){
+                  is_pressed=false;
+                  high_Score=false;
+                  quit2=true;
+                  quit=true;
+         }
+
+          if( SDL_Flip( screen ) == -1 )
+        {
+            return 1;
+        }
+
+
+  }
+
 
      SDL_Surface*enemy1=load_image("Enemies/enemy01.png");
     SDL_Surface*enemy2=load_image("Enemies/enemy02.png");
@@ -215,11 +410,13 @@ int main(int argc, char* args[])
     SDL_Surface*enemy4=load_image("Enemies/enemy04.png");
     SDL_Surface*enemy5=load_image("Enemies/enemy05.png");
      SDL_Surface*enemy6=load_image("Enemies/enemy06.png");
+     SDL_Surface*enemy7=load_image("Enemies/meteor.png");
      SDL_Surface *bul =load_image("bullet1.png");
 
 
-    Character *personaje = new Character(260,400);
 
+    Character *personaje = new Character(260,400);
+    Background back(screen);
 
      Bullet *bull = new Bullet(personaje->x,personaje->y);
 
@@ -241,39 +438,7 @@ int main(int argc, char* args[])
 
 
 
-//         if( SDL_PollEvent( &event ) )
-//        {
-//            //If a key was pressed
-//            if( event.type == SDL_KEYDOWN )
-//            {
-//                //Set the proper message surface
-//                switch( event.key.keysym.sym )
-//                {
-//                    case SDLK_UP:
-//                        personaje->y-=2;
-//                          personaje->moviendose=true;
-//                          personaje->score++;
-//
-//
-//                    break;
-//                    case SDLK_DOWN:
-//
-////                        personaje->y+=2;
-//                          personaje->moviendose=true;
-////                    break;
-//                    case SDLK_LEFT:
-//
-//                        pers->x--;
-//                        pers->moviendose =true;
-//                    break;
-//                    case SDLK_RIGHT:
-//
-//                        pers->x++;
-//                        pers->moviendose =true;
-//                    break;
-//                }
-//            }
-//        }
+
         Uint8 *keystates = SDL_GetKeyState( NULL );
 
         //If up is pressed
@@ -314,11 +479,10 @@ int main(int argc, char* args[])
         }
 
 
-
-
-
            //Apply the background
-            apply_surface( 0, 0, background, screen );
+            back.logic();
+            back.render();
+
             personaje->score_img=TTF_RenderText_Solid( font, personaje->toString(personaje->score).c_str(),textColor );
 
             personaje->lives_img=TTF_RenderText_Solid( font, personaje->toString(personaje->lives).c_str(),textColor );
@@ -336,19 +500,42 @@ int main(int argc, char* args[])
             apply_surface( 280, 10, enemy4, screen );
             apply_surface( 350,10, enemy5, screen );
             apply_surface( 420,10, enemy6, screen );
+            apply_surface( 490,10, enemy7, screen );
 
 
               if( keystates[ SDLK_SPACE ] )
         {
+            down=true;
+            personaje->bull->exists=true;
 
-
-            personaje->shot(screen);
 
 
 
 
         }
 
+        if(down){
+        personaje->shot(screen);
+
+        }
+        if(bull->y<0)
+        down=false;
+//         if( SDL_PollEvent( &event ) )
+//        {
+//           // If a key was pressed
+//            if( event.type == SDL_KEYDOWN )
+//            {
+//              //  Set the proper message surface
+//                switch( event.key.keysym.sym )
+//                {
+//
+//                     case SDLK_SPACE:
+//
+//                        personaje->shot(screen);
+//                    break;
+//                }
+//            }
+//        }
 
 
     if(personaje->y<=300)
@@ -368,6 +555,8 @@ int main(int argc, char* args[])
     }
 
     clean_up();
+
+
     cout << "Hello world!" << endl;
     return 0;
 }
