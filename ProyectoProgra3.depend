@@ -2,20 +2,21 @@
 1386624181 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.cpp
 	"Bullet.h"
 
-1386850065 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.h
+1386887536 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.h
 	"SDL/SDL_image.h"
 
-1386871132 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.cpp
+1386887710 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.cpp
 	"Character.h"
 
-1386870693 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.h
+1386885912 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.h
 	<vector>
 	<string>
+	"SDL/SDL_mixer.h"
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
 	"Bullet.h"
 
-1386871538 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/main.cpp
+1386894770 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/main.cpp
 	<iostream>
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
@@ -37,10 +38,10 @@
 	"Bullet.h"
 	<vector>
 
-1386871538 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.cpp
+1386899323 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.cpp
 	"Enemy.h"
 
-1386871566 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.h
+1386887536 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.h
 	"Character.h"
 	"SDL/SDL_mixer.h"
 	"SDL/SDL_image.h"

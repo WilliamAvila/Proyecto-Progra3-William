@@ -72,16 +72,20 @@ Character::Character()
 
 
 void Character :: morir(SDL_Surface * screen)
-
 {
+         Mix_Chunk *exp ;
+            Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 );
+            exp = Mix_LoadWAV( "sounds/bomb.wav" );
+            Mix_PlayChannel( -1,exp, 0);
 
 this->apply_surface(this->x,this->y,explo_img,screen);
 //
-this->x=760;
-this->y=580;
+this->x=260;
+this->y=400;
 
 
 this->lives-=1;
+
 }
 
 

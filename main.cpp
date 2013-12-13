@@ -39,6 +39,24 @@ SDL_Surface *load_image( std::string filename )
     return IMG_Load( filename.c_str() );
 }
 
+
+
+string  toString(int number)
+{
+    if (number == 0)
+        return "0";
+    string temp="";
+    string returnvalue="";
+    while (number>0)
+    {
+        temp+=number%10+48;
+        number/=10;
+    }
+    for (int i=0;i<(int)temp.length();i++)
+        returnvalue+=temp[temp.length()-i-1];
+    return returnvalue;
+}
+
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL )
 {
     //Holds offsets
@@ -126,11 +144,11 @@ bool load_files()
     return true;
 }
 
-void agregarScore(string nombre,int puntos)
+void agregarScore(int puntos)
 {
 
-    ofstream out("ejemplo.txt", ios::app);
-    out<<nombre<<' '<<puntos<<endl;
+    ofstream out("high Score.txt", ios::app);
+    out<<puntos<<endl;
 
 
 
@@ -156,46 +174,16 @@ void clean_up()
 
 int main(int argc, char* args[])
 {
+    int cont=0;
+    int score=0;
+    int max1=-9999;
 
+ SDL_Surface * gameover = load_image("GameOver.png");
+  SDL_Surface * win = load_image("win.png");
 
+  bool go=false;
+  bool wn=false;
 
-    //SCORE
-//
-//     agregarScore("Jose",2111);
-//   agregarScore("Maria",211);
-//   agregarScore("Test",20);
-//
-//
-//
-//
-//    ifstream in ("ejemplo.txt");
-//
-//    int max =-9999;
-//    string nombre_max=" ";
-//
-//   while(!in.eof())
-//   {
-//
-//       string nombre;
-//       int puntos;
-//       in>>nombre;
-//       in>>puntos;
-//
-//        if(max<puntos)
-//        {
-//            max=puntos;
-//            nombre_max=nombre;
-//
-//        }
-//
-//
-//
-//
-//   }
-
-
-
-//      cout<<"Ganador: "<<nombre_max<<endl;
 
 
     SDL_Surface*back_hs=load_image("black.png");
@@ -231,7 +219,9 @@ int main(int argc, char* args[])
     SDL_Surface*cursor=load_image("cursor.png");
      int cursor_x=270;
     int cursor_y=80;
-    SDL_Surface *hs_highscore=TTF_RenderText_Solid( font, "High Sore",textColor );
+    SDL_Surface *hs_highscore=TTF_RenderText_Solid( font, "High Score",textColor );
+
+
 
 
 Mix_PlayMusic( title, -1 );
@@ -249,6 +239,7 @@ Mix_PlayMusic( title, -1 );
                 quit2= true;
                 quit= true;
                 is_pressed=false;
+                 go=true;
             }
         }
 
@@ -274,6 +265,7 @@ Mix_PlayMusic( title, -1 );
                 quit2= true;
                 quit= true;
                 is_pressed=false;
+                 go=true;
 
         }
 
@@ -358,16 +350,45 @@ Mix_PlayMusic( title, -1 );
                 quit2= true;
                 quit= true;
                 is_pressed=false;
+                 go=true;
             }
         }
+
+            //SCORE
+
+    ifstream in ("high Score.txt");
+
+    int max =-9999;
+
+   while(!in.eof())
+   {
+       int puntos;
+       in>>puntos;
+
+        if(max<puntos)
+            max=puntos;
+
+
+    }
+
+
+
+
+
+
+
+
         apply_surface( 0, 0, back_hs, screen );
         apply_surface( 270, 80, hs_highscore, screen );
+        SDL_Surface *hs_highscoreMax=TTF_RenderText_Solid( font, toString(max).c_str(),textColor );
+        apply_surface( 270, 180, hs_highscoreMax, screen );
 
          if(keystates1[SDLK_BACKSPACE]){
                   high_Score=false;
                   quit2=true;
                   quit=true;
                   is_pressed=false;
+                  go=true;
          }
 
           if( SDL_Flip( screen ) == -1 )
@@ -392,6 +413,7 @@ Mix_PlayMusic( title, -1 );
                 quit2= true;
                 quit= true;
                 is_pressed=false;
+                 go=true;
             }
         }
         apply_surface( 0, 0, ins_screen, screen );
@@ -403,6 +425,7 @@ Mix_PlayMusic( title, -1 );
                   high_Score=false;
                   quit2=true;
                   quit=true;
+                  go=true;
          }
 
           if( SDL_Flip( screen ) == -1 )
@@ -443,6 +466,7 @@ Mix_PlayMusic( title, -1 );
             {
                 //Quit the program
                 quit = true;
+                 go=true;
             }
         }
 
@@ -504,6 +528,16 @@ Mix_PlayMusic( title, -1 );
 
           personaje->dibujar(screen);
           enemigo->render(screen);
+          enemigo->shot(screen);
+
+           enemigo->shot(screen);
+            if(cont%100==0)
+            {
+             enemigo->bullets.push_back(new Bullet(enemigo->x,enemigo->y));
+            }
+
+
+
 
 
               apply_surface( 70, 10, enemy1, screen );
@@ -515,7 +549,7 @@ Mix_PlayMusic( title, -1 );
             apply_surface( 490,10, enemy7, screen );
 
 
-              if( keystates[ SDLK_c ] )
+              if( keystates[ SDLK_c ] && cont%25==0)
         {
             Mix_PlayChannel(-1,effect,0);
                 personaje->bullets2.push_back(new Bullet(personaje->x,personaje->y));
@@ -528,12 +562,14 @@ Mix_PlayMusic( title, -1 );
 
 
 
-        }
 
-        if(down){
+        }
         personaje->shot(screen);
 
-        }
+//        if(down){
+//        personaje->shot(screen);
+//
+//        }
         if(bull->y<0)
         down=false;
 //         if( SDL_PollEvent( &event ) )
@@ -554,12 +590,23 @@ Mix_PlayMusic( title, -1 );
 //        }
 
 
-    if(personaje->y<=300)
+    if(enemigo->logica(personaje))
      personaje->morir(screen);
 //          personaje->sprites.push_back(load_image("shipleft1.png"));
 //          personaje->sprites.push_back(load_image("shipleft2.png"));
 //          personaje->sprites.push_back(load_image("shipleft3.png"));
 //          personaje->dibujar(screen);
+
+
+        if(personaje->lives==0){
+            score = personaje->score;
+
+            agregarScore(score);
+
+            quit=true;
+            go=false;
+
+        }
 
           //Update the screen
         if( SDL_Flip( screen ) == -1 )
@@ -567,8 +614,38 @@ Mix_PlayMusic( title, -1 );
             return 1;
         }
 
+        cont++;
+
 
     }
+
+
+      while(go==false){
+
+
+
+        while( SDL_PollEvent( &event ) )
+        {
+            //If the user has Xed out the window
+            if( event.type == SDL_QUIT )
+            {
+                //Quit the program
+                high_Score=false;
+                quit2= true;
+                quit= true;
+                is_pressed=false;
+                go=true;
+            }
+        }
+
+        apply_surface( 0, 0, gameover, screen );
+
+          if( SDL_Flip( screen ) == -1 )
+        {
+            return 1;
+        }
+
+      }
 
     clean_up();
 
@@ -576,3 +653,6 @@ Mix_PlayMusic( title, -1 );
     cout << "Hello world!" << endl;
     return 0;
 }
+
+
+
