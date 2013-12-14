@@ -1,5 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
+
 #include <vector>
 #include <string>
 #include "SDL/SDL_mixer.h"
@@ -7,7 +8,10 @@
 #include "SDL/SDL_ttf.h"
 #include "Bullet.h"
 
+
+
 using namespace std;
+
 class Character
 {
     public:
@@ -23,6 +27,7 @@ class Character
         SDL_Surface*explo_img;
         SDL_Surface*img;
         bool moviendose;
+        bool colision;
         virtual void dibujar(SDL_Surface*screen);
         virtual void morir(SDL_Surface * screen);
         virtual void shot(SDL_Surface*screen);

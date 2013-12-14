@@ -5,8 +5,8 @@ Enemy::Enemy(int x,int y)
     this->x=x;
     this->y=y;
     this->colision=false;
-     this->explo_img = IMG_Load("explosion.png");
-
+    this->explo_img = IMG_Load("explosion.png");
+    this->murio=false;
 
     //ctor
 }
@@ -16,14 +16,16 @@ Enemy::~Enemy()
     //dtor
 }
 
+Enemy:: Enemy()
+{
+    //ctor
+}
+
 
 bool Enemy::logica(Character *player)
 {
-//      this->y+=2;
-//
-//        if(this->y>480)
-//            this->y=-200;
-        this->movement();
+
+
 
 
 
@@ -46,12 +48,14 @@ bool Enemy::logica(Character *player)
                    && player->y+45>bullets[i]->y && player->y<bullets[i]->y+9){
 
                     this->colision=true;
+
+                    while(bullets.size()>0)
+                        bullets.pop_back();
+
                     return colision;
 
 
                    }
-
-
 
             }
 
@@ -67,6 +71,7 @@ bool Enemy::logica(Character *player)
 
 void Enemy :: render(SDL_Surface * screen)
 {
+     movement();
         //Holds offsets
     SDL_Rect offset;
 
@@ -82,12 +87,7 @@ void Enemy :: render(SDL_Surface * screen)
 
 }
 
-void Enemy :: movement()
-{
 
-
-
-}
 
 
 void Enemy :: shot(SDL_Surface * screen)
@@ -114,13 +114,24 @@ void Enemy :: morir(SDL_Surface * screen)
 
                 this->apply_surface(this->x,this->y,explo_img,screen);
                 //
-                this->x=x;
-                this->y=-400;
+                this->x=1000;
+                this->y=1000;
 }
 
 
 void Enemy :: atacar(Character *player)
 {
+
+}
+
+void Enemy :: movement()
+{
+         this->y+=1;
+
+        if(this->y>480)
+            this->y=-200;
+
+
 
 }
 

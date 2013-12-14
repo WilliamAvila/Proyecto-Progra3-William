@@ -10,6 +10,7 @@ Character::Character(int x, int y)
     this->score=0;
     this->lives=3;
     this->bull=new Bullet(x,y);
+    this->colision=false;
 
     this->sprites.push_back(IMG_Load("ship2.png"));
     this->sprites.push_back(IMG_Load("ship1.png"));
@@ -112,6 +113,7 @@ void Character :: shot(SDL_Surface * screen)
 
  //this->bullets.push_back(new Bullet(this->x,this->y));
 }
+
 
 
 string Character:: toString(int number)

@@ -1,17 +1,21 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "Character.h"
+
 #include "SDL/SDL_mixer.h"
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_ttf.h"
 #include "Bullet.h"
+#include "Character.h"
 
-class Enemy
+using namespace std;
+ class Enemy
 {
     public:
+        Enemy();
         Enemy( int x, int y);
         int x, y;
+        bool murio;
         vector<Bullet*>bullets;
         bool colision;
         virtual ~Enemy();
@@ -21,7 +25,7 @@ class Enemy
         virtual void render(SDL_Surface * screen);
         virtual void shot(SDL_Surface * screen);
         virtual void movement();
-        void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip=NULL );
+        virtual void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip=NULL );
         SDL_Surface* image;
 
         SDL_Surface*explo_img;

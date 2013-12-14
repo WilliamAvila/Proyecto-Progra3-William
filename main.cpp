@@ -11,6 +11,7 @@
 #include <sstream>
 #include "Background.h"
 #include  "Enemy.h"
+#include "Meteor.h"
 using namespace std;
 bool down=false;
 //The frames per second
@@ -168,6 +169,31 @@ void clean_up()
 
     //Quit SDL
     SDL_Quit();
+
+}
+
+bool atacar(Enemy *enemigo,Character *player)
+{
+        for(int i=0;i<player->bullets.size();i++)
+            {
+                if(enemigo->x+50>player->bullets[i]->x && enemigo->x<player->bullets[i]->x+5
+                   && enemigo->y+70>player->bullets[i]->y && enemigo->y<player->bullets[i]->y+9){
+
+                    player->colision=true;
+
+                    while(player->bullets.size()>0)
+                        player->bullets.pop_back();
+
+                    return player->colision;
+
+
+                   }
+
+            }
+
+        return player->colision;
+
+
 
 }
 
@@ -418,7 +444,7 @@ Mix_PlayMusic( title, -1 );
         }
         apply_surface( 0, 0, ins_screen, screen );
         apply_surface( 220, 80, in1, screen );
-         apply_surface( 220, 280, in2, screen );
+        apply_surface( 220, 280, in2, screen );
 
          if(keystates1[SDLK_BACKSPACE]){
                   is_pressed=false;
@@ -437,24 +463,39 @@ Mix_PlayMusic( title, -1 );
   }
 
 
-     SDL_Surface*enemy1=load_image("Enemies/enemy01.png");
-    SDL_Surface*enemy2=load_image("Enemies/enemy02.png");
-    SDL_Surface*enemy3=load_image("Enemies/enemy03.png");
-    SDL_Surface*enemy4=load_image("Enemies/enemy04.png");
-    SDL_Surface*enemy5=load_image("Enemies/enemy05.png");
-     SDL_Surface*enemy6=load_image("Enemies/enemy06.png");
-     SDL_Surface*enemy7=load_image("Enemies/meteor.png");
-     SDL_Surface *bul =load_image("bullet1.png");
-
-
 
     Character *personaje = new Character(260,400);
-    Enemy *enemigo =new Enemy(260,200);
+    Enemy *enemigo =new Enemy(50,100);
+    Enemy *enemigo2 =new Enemy(150,10);
+    Enemy *enemigo3 =new Enemy(250,100);
+    Enemy *enemigo4 =new Enemy(350,10);
+    Enemy *enemigo5 =new Enemy(450,100);
+    Enemy *enemigo6=new Enemy(550,10);
+    Enemy *enemigo7 =new Enemy(250,-100);
+
+
     Background back(screen);
 
-     Bullet *bull = new Bullet(personaje->x,personaje->y);
+    Bullet *bull = new Bullet(personaje->x,personaje->y);
+    vector<Enemy*> enemies;
 
     enemigo->image=load_image("Enemies/enemy01.png");
+    enemigo2->image=load_image("Enemies/enemy02.png");
+    enemigo3->image=load_image("Enemies/enemy03.png");
+    enemigo4->image=load_image("Enemies/enemy04.png");
+    enemigo5->image=load_image("Enemies/enemy05.png");
+    enemigo6->image=load_image("Enemies/enemy06.png");
+    enemigo7->image=load_image("Enemies/meteor.png");
+
+    enemies.push_back(enemigo);
+    enemies.push_back(enemigo2);
+    enemies.push_back(enemigo3);
+    enemies.push_back(enemigo4);
+    enemies.push_back(enemigo5);
+    enemies.push_back(enemigo6);
+    enemies.push_back(enemigo7);
+
+
     Mix_PlayMusic(music,-1);
      while( quit == false )
     {
@@ -482,7 +523,7 @@ Mix_PlayMusic( title, -1 );
           //  apply_surface( ( SCREEN_WIDTH - up->w ) / 2, ( SCREEN_HEIGHT / 2 - up->h ) / 2, up, screen );
             personaje->y-=2;
             personaje->moviendose=true;
-            personaje->score++;
+
         }
 
         //If down is pressed
@@ -523,37 +564,82 @@ Mix_PlayMusic( title, -1 );
             personaje->lives_img=TTF_RenderText_Solid( font, personaje->toString(personaje->lives).c_str(),textColor );
           // apply_surface( 75, 75, pers_surface, screen );
 
+        for(int i=0;i<enemies.size();i++)
+        {
+             enemies[i]->render(screen);
+             enemies[i]->shot(screen);
+              enemies[i]->shot(screen);
 
+
+            if(cont%100==0)
+            {
+             enemies[i]->bullets.push_back(new Bullet(enemies[i]->x,enemies[i]->y));
+            }
+
+              if(enemies[i]->logica(personaje))
+                personaje->morir(screen);
+
+
+
+        }
 
 
           personaje->dibujar(screen);
-          enemigo->render(screen);
-          enemigo->shot(screen);
+//          enemigo->render(screen);
+//          enemigo->shot(screen);
+//
+//           enemigo2->render(screen);
+//          enemigo2->shot(screen);
+//
+//
+//           enemigo3->render(screen);
+//          enemigo3->shot(screen);
+//
+//
+//           enemigo4->render(screen);
+//          enemigo4->shot(screen);
+//
+//
+//           enemigo5->render(screen);
+//          enemigo5->shot(screen);
+//
+//
+//           enemigo6->render(screen);
+//          enemigo6->shot(screen);
+//
+//          enemigo7->render(screen);
 
-           enemigo->shot(screen);
-            if(cont%100==0)
-            {
-             enemigo->bullets.push_back(new Bullet(enemigo->x,enemigo->y));
-            }
+
+//           enemigo->shot(screen);
+//            if(cont%100==0)
+//            {
+//             enemies[0]->bullets.push_back(new Bullet(enemies[[0]->x,enemies[0]->y));
+//            }
+//
+//
+//                enemies[0]->shot(screen);
+//            if(cont%100==0)
+//            {
+//             enemies[1]->bullets.push_back(new Bullet(enemies[1]->x,enemies[1]->y));
+//            }
 
 
 
 
 
-              apply_surface( 70, 10, enemy1, screen );
-            apply_surface( 140,10, enemy2, screen );
-            apply_surface( 210, 10, enemy3, screen );
-            apply_surface( 280, 10, enemy4, screen );
-            apply_surface( 350,10, enemy5, screen );
-            apply_surface( 420,10, enemy6, screen );
-            apply_surface( 490,10, enemy7, screen );
+
+
+
+            Meteor *meteoro =new Meteor(200,300);
+            meteoro->render(screen);
+            meteoro->logica(personaje);
 
 
               if( keystates[ SDLK_c ] && cont%25==0)
         {
-            Mix_PlayChannel(-1,effect,0);
+                Mix_PlayChannel(-1,effect,0);
                 personaje->bullets2.push_back(new Bullet(personaje->x,personaje->y));
-           personaje->bullets.push_back(new Bullet(personaje->x,personaje->y));
+                personaje->bullets.push_back(new Bullet(personaje->x,personaje->y));
 
             down=true;
             personaje->bull->exists=true;
@@ -566,36 +652,33 @@ Mix_PlayMusic( title, -1 );
         }
         personaje->shot(screen);
 
-//        if(down){
-//        personaje->shot(screen);
-//
-//        }
-        if(bull->y<0)
-        down=false;
-//         if( SDL_PollEvent( &event ) )
-//        {
-//           // If a key was pressed
-//            if( event.type == SDL_KEYDOWN )
-//            {
-//              //  Set the proper message surface
-//                switch( event.key.keysym.sym )
-//                {
-//
-//                     case SDLK_SPACE:
-//
-//                        personaje->shot(screen);
-//                    break;
-//                }
-//            }
-//        }
 
 
-    if(enemigo->logica(personaje))
+    bool act =false;
+
+
+    if(enemies[0]->logica(personaje))
      personaje->morir(screen);
-//          personaje->sprites.push_back(load_image("shipleft1.png"));
-//          personaje->sprites.push_back(load_image("shipleft2.png"));
-//          personaje->sprites.push_back(load_image("shipleft3.png"));
-//          personaje->dibujar(screen);
+
+      if(atacar(enemies[0],personaje)){
+        enemies[0]->morir(screen);
+
+
+      }
+
+         if(enemies[1]->logica(personaje))
+     personaje->morir(screen);
+
+      if(atacar(enemies[1],personaje)){
+        enemies[1]->morir(screen);
+
+
+      }
+
+
+      if(cont%100==0)
+        personaje->score+=10;
+
 
 
         if(personaje->lives==0){
@@ -607,6 +690,8 @@ Mix_PlayMusic( title, -1 );
             go=false;
 
         }
+        if(personaje->score==1000)
+        apply_surface(0,0,win,screen);
 
           //Update the screen
         if( SDL_Flip( screen ) == -1 )

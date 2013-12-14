@@ -40,6 +40,10 @@
 		<Unit filename="Character.h" />
 		<Unit filename="Enemy.cpp" />
 		<Unit filename="Enemy.h" />
+		<Unit filename="Enemy1.cpp" />
+		<Unit filename="Enemy1.h" />
+		<Unit filename="Meteor.cpp" />
+		<Unit filename="Meteor.h" />
 		<Unit filename="Timer.cpp" />
 		<Unit filename="Timer.h" />
 		<Unit filename="main.cpp" />

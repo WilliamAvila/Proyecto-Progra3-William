@@ -5,10 +5,10 @@
 1386887536 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Bullet.h
 	"SDL/SDL_image.h"
 
-1386887710 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.cpp
+1386947447 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.cpp
 	"Character.h"
 
-1386885912 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.h
+1386947433 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Character.h
 	<vector>
 	<string>
 	"SDL/SDL_mixer.h"
@@ -16,7 +16,7 @@
 	"SDL/SDL_ttf.h"
 	"Bullet.h"
 
-1386894770 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/main.cpp
+1386976105 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/main.cpp
 	<iostream>
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
@@ -29,6 +29,7 @@
 	<sstream>
 	"Background.h"
 	"Enemy.h"
+	"Meteor.h"
 
 1386628178 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Player.cpp
 	"Player.h"
@@ -38,15 +39,15 @@
 	"Bullet.h"
 	<vector>
 
-1386899323 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.cpp
+1386985897 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.cpp
 	"Enemy.h"
 
-1386887536 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.h
-	"Character.h"
+1386973932 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy.h
 	"SDL/SDL_mixer.h"
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
 	"Bullet.h"
+	"Character.h"
 
 1386631923 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Timer.cpp
 	"Timer.h"
@@ -62,4 +63,15 @@
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
 	<string>
+
+1386947889 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy1.cpp
+	"Enemy1.h"
+
+1386947888 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Enemy1.h
+
+1386973701 source:/home/william/Documents/Code Blocks Projects/ProyectoProgra3/Meteor.cpp
+	"Meteor.h"
+
+1386973692 /home/william/Documents/Code Blocks Projects/ProyectoProgra3/Meteor.h
+	"Enemy.h"
 
